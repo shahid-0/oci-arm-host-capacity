@@ -16,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: ['8.2']
+        php-versions: ['7.4']
     name: integration-tests (PHP ${{ matrix.php-versions }})
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v1
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -30,7 +30,7 @@ jobs:
       - name: Get Composer Cache Directory
         id: composer-cache
         run: |
-          echo "name=dir::$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
       - uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
